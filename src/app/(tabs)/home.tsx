@@ -1,174 +1,247 @@
-import React from 'react';
-// Importamos os componentes básicos do React Native
-import { 
-  View, 
-  Text, 
-  StyleSheet, 
-  ScrollView, 
-  TouchableOpacity, 
-  Image, 
-  StatusBar 
-} from 'react-native';
-// Importamos ícones de duas bibliotecas diferentes para ter mais variedade
-import { Feather, MaterialCommunityIcons } from '@expo/vector-icons';
+import React from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  Image,
+  TouchableOpacity,
+  Dimensions,
+} from "react-native";
 
-export default function TabHome() {
+export default function Home() {
   return (
-    <View style={styles.container}>
-      {/* StatusBar configura a cor dos ícones de bateria/hora no topo do celular */}
-      <StatusBar barStyle="dark-content" />
-      
-      {/* 1. SEÇÃO DE HEADER (CABEÇALHO) 
-          Usamos uma View com flexDirection 'row' para alinhar texto e sino lado a lado */}
-      <View style={styles.header}>
-        <View>
-          <Text style={styles.greeting}>Olá, Bem-vindo!</Text>
-          <Text style={styles.subtitle}>Como você quer ajudar hoje?</Text>
+    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+      {/* HERO / BANNER */}
+      <View style={styles.hero}>
+        <Image
+          source={{
+            uri: "https://images.unsplash.com/photo-1509099836639-18ba1795216d",
+          }}
+          style={styles.heroImage}
+        />
+        <View style={styles.overlay}>
+          <Text style={styles.title}>
+            Sua doação gera{"\n"}
+            <Text style={styles.highlight}>impacto real</Text>
+          </Text>
+          <Text style={styles.subtitle}>
+            Conectamos doadores a famílias de forma organizada
+          </Text>
+          <TouchableOpacity style={styles.button}>
+            <Text style={styles.buttonText}>Quero Doar Agora</Text>
+          </TouchableOpacity>
         </View>
-        {/* Botão de Notificação (Sino) */}
-        <TouchableOpacity style={styles.notificationBtn}>
-          <Feather name="bell" size={24} color="#1A2D42" />
-        </TouchableOpacity>
       </View>
 
-      {/* ScrollView permite que a tela role se o conteúdo for maior que o visor */}
-      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
-        
-        {/* 2. CARD DE IMPACTO 
-            Exibe as conquistas do usuário. A barra de progresso é feita com duas Views sobrepostas */}
-        <View style={styles.impactCard}>
-          <Text style={styles.impactTitle}>Seu Impacto no Doa Luz</Text>
-          <Text style={styles.impactNumber}>15 Doações</Text>
-          {/* Fundo da barra (cinza transparente) */}
-          <View style={styles.progressBar}>
-            {/* Preenchimento da barra (branco). O width define a porcentagem de conclusão */}
-            <View style={[styles.progressFill, { width: '70%' }]} />
+      {/* SEÇÃO NECESSIDADES */}
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Necessidades Atuais</Text>
+        <Text style={styles.sectionSubtitle}>
+          Pequenos gestos criam grandes mudanças.
+        </Text>
+
+        <View style={styles.cardsContainer}>
+          {/* CARD 1 */}
+          <View style={styles.card}>
+            <View>
+              <Text style={styles.badge}>URGENTE</Text>
+              <Text style={styles.cardTitle}>15 Cestas Básicas</Text>
+              <View style={styles.progressBar}>
+                <View style={[styles.progress, { width: "40%" }]} />
+              </View>
+            </View>
+            <TouchableOpacity style={styles.cardButton}>
+              <Text style={styles.cardButtonText}>Ajudar Agora</Text>
+            </TouchableOpacity>
+          </View>
+
+          {/* CARD 2 */}
+          <View style={styles.card}>
+            <View>
+              <Text style={styles.badge}>EDUCAÇÃO</Text>
+              <Text style={styles.cardTitle}>Kits Escolares</Text>
+              <View style={styles.progressBar}>
+                <View style={[styles.progress, { width: "70%" }]} />
+              </View>
+            </View>
+            <TouchableOpacity style={styles.cardButton}>
+              <Text style={styles.cardButtonText}>Ajudar Agora</Text>
+            </TouchableOpacity>
+          </View>
+
+          {/* CARD 3 - ARRUMADO */}
+          <View style={styles.card}>
+            <View>
+              <Text style={styles.badge}>VESTUÁRIO</Text>
+              <Text style={styles.cardTitle}>Agasalhos</Text>
+              {/* Barra de progresso para manter o padrão visual */}
+              <View style={styles.progressBar}>
+                <View style={[styles.progress, { width: "60%" }]} />
+              </View>
+            </View>
+            <TouchableOpacity style={styles.cardButton}>
+              <Text style={styles.cardButtonText}>Ajudar Agora</Text>
+            </TouchableOpacity>
           </View>
         </View>
+      </View>
 
-        {/* 3. SEÇÃO DE CATEGORIAS 
-            O 'horizontal' permite deslizar os cards para os lados */}
-        <Text style={styles.sectionTitle}>Explorar Categorias</Text>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.categoriesScroll}>
-          <CategoryItem icon="food-apple" label="Alimentos" color="#FFEBEE" />
-          <CategoryItem icon="tshirt-crew" label="Roupas" color="#E3F2FD" />
-          <CategoryItem icon="medical-bag" label="Saúde" color="#E8F5E9" />
-          <CategoryItem icon="book-open-variant" label="Educação" color="#FFF3E0" />
-        </ScrollView>
-
-        {/* 4. CAUSAS URGENTES 
-            Cards que utilizam imagens externas (URLs do Unsplash) */}
-        <View style={styles.sectionHeader}>
-          <Text style={styles.sectionTitle}>Causas Urgentes</Text>
-          <TouchableOpacity><Text style={styles.seeAll}>Ver todas</Text></TouchableOpacity>
+      {/* CTA FINAL */}
+      <View style={styles.cta}>
+        <View style={{ flex: 1, marginRight: 10 }}>
+          <Text style={styles.ctaTitle}>É uma Instituição?</Text>
+          <Text style={styles.ctaText}>
+            Cadastre suas necessidades e receba doações.
+          </Text>
         </View>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          <CauseCard 
-            title="Campanha do Agasalho" 
-            goal="Meta: R$ 5.000" 
-            img="https://images.unsplash.com/photo-1532629345422-7515f3d16bb8?w=400"
-          />
-          <CauseCard 
-            title="Alimentos para Abrigo" 
-            goal="Meta: R$ 2.500" 
-            img="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=400"
-          />
-        </ScrollView>
-
-        {/* 5. LISTA DE INSTITUIÇÕES 
-            Cards verticais que simulam uma lista de parceiros próximos */}
-        <Text style={styles.sectionTitle}>Instituições Próximas</Text>
-        <InstitutionItem name="ONG Mãos Amigas" dist="1.2 km" rating="4.9" />
-        <InstitutionItem name="Instituto Amanhã" dist="3.5 km" rating="4.7" />
-
-      </ScrollView>
-    </View>
+        <TouchableOpacity style={styles.ctaButton}>
+          <Text style={styles.ctaButtonText}>Cadastrar</Text>
+        </TouchableOpacity>
+      </View>
+      
+      <View style={{ height: 40 }} />
+    </ScrollView>
   );
 }
 
-/** * COMPONENTES DE INTERFACE (Reutilizáveis)
- * Criamos funções separadas para não repetir código e manter o arquivo limpo.
- */
-
-// Item de Categoria (Cardzinho colorido com ícone)
-const CategoryItem = ({ icon, label, color }: any) => (
-  <TouchableOpacity style={[styles.catCard, { backgroundColor: color }]}>
-    <MaterialCommunityIcons name={icon} size={28} color="#1A2D42" />
-    <Text style={styles.catLabel}>{label}</Text>
-  </TouchableOpacity>
-);
-
-// Card de Causa (Com imagem de fundo e título)
-const CauseCard = ({ title, goal, img }: any) => (
-  <View style={styles.causeCard}>
-    <Image source={{ uri: img }} style={styles.causeImg} />
-    <View style={styles.causeInfo}>
-      <Text style={styles.causeTitle}>{title}</Text>
-      <Text style={styles.causeGoal}>{goal}</Text>
-    </View>
-  </View>
-);
-
-// Item da Lista de Instituições (Com ícone de seta '>' no final)
-const InstitutionItem = ({ name, dist, rating }: any) => (
-  <TouchableOpacity style={styles.instCard}>
-    <View style={styles.instIconPlaceholder} />
-    <View style={{ flex: 1, marginLeft: 12 }}>
-      <Text style={styles.instName}>{name}</Text>
-      <Text style={styles.instSub}>{dist} • ⭐ {rating}</Text>
-    </View>
-    <Feather name="chevron-right" size={20} color="#CCC" />
-  </TouchableOpacity>
-);
-
-/** * ESTILIZAÇÃO (CSS do React Native)
- */
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#F4F7F6" },
-  header: { 
-    flexDirection: 'row', // Alinha itens horizontalmente
-    justifyContent: 'space-between', // Joga um para cada ponta
-    alignItems: 'center', 
-    paddingHorizontal: 25, 
-    paddingTop: 60, 
-    paddingBottom: 20, 
-    backgroundColor: '#FFF' 
+  container: {
+    flex: 1,
+    backgroundColor: "#f0f7f5",
   },
-  greeting: { fontSize: 22, fontWeight: 'bold', color: '#1A2D42' },
-  subtitle: { fontSize: 14, color: '#7A8C99' },
-  notificationBtn: { padding: 8, backgroundColor: '#F0F4F4', borderRadius: 10 },
-  scrollContent: { padding: 25 },
-  
-  // Estilo do Card Verde de Impacto
-  impactCard: { backgroundColor: '#6CBAA9', padding: 20, borderRadius: 20, marginBottom: 25 },
-  impactTitle: { color: '#FFF', fontSize: 14, fontWeight: '600' },
-  impactNumber: { color: '#FFF', fontSize: 28, fontWeight: 'bold', marginVertical: 8 },
-  progressBar: { height: 8, backgroundColor: 'rgba(255,255,255,0.3)', borderRadius: 4 },
-  progressFill: { height: 8, backgroundColor: '#FFF', borderRadius: 4 },
-  
-  // Títulos das seções
-  sectionTitle: { fontSize: 18, fontWeight: 'bold', color: '#1A2D42', marginVertical: 15 },
-  sectionHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
-  seeAll: { color: '#6CBAA9', fontWeight: 'bold' },
-  
-  // Estilo dos Cards de Categoria
-  categoriesScroll: { marginBottom: 10 },
-  catCard: { width: 85, height: 90, borderRadius: 18, justifyContent: 'center', alignItems: 'center', marginRight: 12 },
-  catLabel: { fontSize: 11, fontWeight: '700', marginTop: 5, color: '#1A2D42' },
-  
-  // Estilo dos Cards de Causas (com imagem)
-  causeCard: { width: 200, backgroundColor: '#FFF', borderRadius: 15, marginRight: 15, overflow: 'hidden', elevation: 3 },
-  causeImg: { width: '100%', height: 100 },
-  causeInfo: { padding: 10 },
-  causeTitle: { fontWeight: 'bold', color: '#1A2D42' },
-  causeGoal: { fontSize: 12, color: '#6CBAA9', marginTop: 2 },
-  
-  // Estilo da Lista de Instituições
-  instCard: { 
-    backgroundColor: '#FFF', padding: 15, borderRadius: 15, 
-    flexDirection: 'row', alignItems: 'center', marginBottom: 10 
+  hero: {
+    height: 250,
+    margin: 16,
+    borderRadius: 25,
+    overflow: "hidden",
+    elevation: 4,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
   },
-  instIconPlaceholder: { width: 45, height: 45, borderRadius: 10, backgroundColor: '#EEE' },
-  instName: { fontWeight: 'bold', color: '#1A2D42' },
-  instSub: { fontSize: 12, color: '#7A8C99' }
+  heroImage: {
+    width: "100%",
+    height: "100%",
+  },
+  overlay: {
+    position: "absolute",
+    padding: 20,
+    width: "100%",
+    height: "100%",
+    justifyContent: "center",
+    backgroundColor: "rgba(0,0,0,0.45)",
+  },
+  title: {
+    fontSize: 24,
+    color: "#fff",
+    fontWeight: "900",
+  },
+  highlight: {
+    color: "#76bbad",
+  },
+  subtitle: {
+    color: "#eee",
+    fontSize: 14,
+    marginVertical: 10,
+  },
+  button: {
+    backgroundColor: "#76bbad",
+    paddingHorizontal: 20,
+    paddingVertical: 12,
+    borderRadius: 12,
+    alignSelf: "flex-start",
+  },
+  buttonText: {
+    color: "#fff",
+    fontWeight: "bold",
+  },
+  section: {
+    paddingHorizontal: 16,
+  },
+  sectionTitle: {
+    fontSize: 22,
+    fontWeight: "bold",
+    color: "#161a19",
+  },
+  sectionSubtitle: {
+    color: "#888",
+    fontSize: 13,
+    marginBottom: 15,
+  },
+  cardsContainer: {
+    gap: 15,
+  },
+  card: {
+    backgroundColor: "#fff",
+    padding: 20,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: "#f0f0f0",
+    minHeight: 170, // Altura padronizada para todos os cards
+    justifyContent: "space-between", 
+  },
+  badge: {
+    fontSize: 10,
+    color: "#76bbad",
+    fontWeight: "bold",
+    letterSpacing: 1,
+    marginBottom: 4,
+  },
+  cardTitle: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "#161a19",
+  },
+  progressBar: {
+    height: 8,
+    backgroundColor: "#f0f0f0",
+    borderRadius: 10,
+    marginTop: 15,
+  },
+  progress: {
+    height: "100%",
+    backgroundColor: "#76bbad",
+    borderRadius: 10,
+  },
+  cardButton: {
+    backgroundColor: "#76bbad",
+    padding: 12,
+    borderRadius: 12,
+    alignItems: "center",
+    marginTop: 10,
+  },
+  cardButtonText: {
+    color: "#fff",
+    fontWeight: "bold",
+  },
+  cta: {
+    backgroundColor: "#8daec2",
+    margin: 16,
+    padding: 20,
+    borderRadius: 25,
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  ctaTitle: {
+    color: "#fff",
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+  ctaText: {
+    color: "#e0e0e0",
+    fontSize: 12,
+  },
+  ctaButton: {
+    backgroundColor: "#76bbad",
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+    borderRadius: 12,
+  },
+  ctaButtonText: {
+    color: "#fff",
+    fontWeight: "bold",
+    fontSize: 12,
+  },
 });

@@ -15,6 +15,24 @@ const ONGS = [
     local: 'Taubaté - SP',
     imagem: 'https://images.unsplash.com/photo-1542810634-7bc278057dc5', // Exemplo
   },
+  {
+    id: '3',
+    nome: 'Expresso Anjos da Cidade/Haja+Amor',
+    local: 'Taubaté - SP',
+    imagem: 'https://images.unsplash.com/photo-1542810634-7bc278057dc5', // Exemplo
+  },
+  {
+    id: '4',
+    nome: 'Paróquia Sagrada Família',
+    local: 'Taubaté - SP',
+    imagem: 'https://images.unsplash.com/photo-1542810634-7bc278057dc5', // Exemplo
+  },
+  {
+    id: '5',
+    nome: 'Igreja da Capital Taubaté',
+    local: 'Taubaté - SP',
+    imagem: 'https://images.unsplash.com/photo-1542810634-7bc278057dc5', // Exemplo
+  },
 ];
 
 export default function Ongs() {

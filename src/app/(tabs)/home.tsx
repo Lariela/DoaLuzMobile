@@ -10,7 +10,7 @@ import {
   StatusBar
 } from "react-native";
 // Importando os ícones - Verifique se todos estão aqui
-import { Apple, GraduationCap, Shirt, Baby, Sofa } from "lucide-react-native";
+import { Apple, GraduationCap, Shirt, Baby } from "lucide-react-native";
 
 export default function Home() {
   const [filtroAtivo, setFiltroAtivo] = useState("Tudo");
